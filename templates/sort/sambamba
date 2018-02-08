@@ -1,0 +1,2 @@
+#!/bin/bash -eu
+time sambamba sort -t ${task.cpus} -m ${mem} -N -o /dev/null ${bam}
