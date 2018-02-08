@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     liblzma-dev \
     libncurses5-dev \
     libncursesw5-dev \
-    zlib1g-dev \
+    zlib1g-dev
 ARG ver
 RUN curl -sL https://github.com/samtools/samtools/releases/download/${ver}/samtools-${ver}.tar.bz2 \
     | tar xj \
