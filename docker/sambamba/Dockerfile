@@ -4,7 +4,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     curl
 ARG ver
-RUN curl -sL https://github.com/biod/sambamba/releases/download/v${ver}/sambamba_v${ver}_linux.tar.bz2 \
+ARG baseUrl
+RUN curl -sL ${baseUrl}/biod/sambamba/releases/download/v${ver}/sambamba_v${ver}_linux.tar.bz2 \
     | tar xj
 
 FROM debian:stable
