@@ -3,3 +3,4 @@ trace.txt*
 report.html
 data
 out
+docker/**/build*.log
