@@ -4,7 +4,9 @@ Channel.fromPath(params.bams)
 sambambaVers = params.sambambaVers.tokenize(',')
 samtoolsVers = params.samtoolsVers.tokenize(',')
 
-commands = ['sort']
+commands = ['flagstat', 'index', 'markdup', 'sort', 'view' ]
+
+samtoolsDiffCommands = ['flagstat', 'index', 'markdup']
 
 process sambamba {
     
@@ -33,5 +35,7 @@ process samtools {
 
     script:
     mem = (task.memory.toBytes()*0.6/task.cpus) as long
-    template "${command}/${task.process}"
+    verSuffix = samtoolsDiffCommands.contains(command) ? "-${ver}" : ""
+    
+    template "${command}/${task.process}${verSuffix}"
 }

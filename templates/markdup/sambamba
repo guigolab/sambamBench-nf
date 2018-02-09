@@ -1,0 +1,2 @@
+#!/bin/bash -eu
+time sambamba markdup -t ${task.cpus} ${bam} /dev/null

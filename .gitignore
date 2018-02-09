@@ -1,6 +1,10 @@
 .DS_Store
-trace.txt*
-report.html
+.direnv
+.envrc
+.nextflow*
 data
-out
 docker/**/build*.log
+out
+report.html*
+trace.txt*
+work
