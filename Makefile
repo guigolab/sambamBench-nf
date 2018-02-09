@@ -10,7 +10,9 @@ ifndef PROFILE
 endif
 
 .PHONY: clean docker $(TOOLS) run
-.DEFAULT: run
+
+run:
+	@ nextflow run -bg . -with-docker -resume -profile $(PROFILE) > run.log
 
 docker: $(TOOLS)
 
@@ -19,9 +21,6 @@ $(TOOLS): % :
 	$(eval VER = $(word 2,$(subst _, ,$@)))
 	@ echo "Building docker image for $(NAME) v$(VER)"
 	@- docker build -t $(DOCKER_REPO)/$(NAME):$(VER) --build-arg baseUrl=$(BASE_URL) --build-arg ver=$(VER) docker/$(NAME) | tee docker/$(NAME)/build-$(VER).log
-
-run:
-	@ echo "nextflow run -bg . -with-docker -resume -profile $(PROFILE) > run.log"
 
 clean:
 	@rm -rf work .nextflow* *.[0-9]+ trace.txt* report.html*
