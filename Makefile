@@ -5,6 +5,9 @@ TOOLS = sambamba_0.6.6 \
 
 BASE_URL = https://github.com
 DOCKER_REPO = grape
+ifndef PROFILE
+  PROFILE := standard
+endif
 
 .PHONY: clean docker $(TOOLS) run
 .DEFAULT: run
@@ -18,7 +21,7 @@ $(TOOLS): % :
 	@- docker build -t $(DOCKER_REPO)/$(NAME):$(VER) --build-arg baseUrl=$(BASE_URL) --build-arg ver=$(VER) docker/$(NAME) | tee docker/$(NAME)/build-$(VER).log
 
 run:
-	@ nextflow run -bg . -with-docker -resume > run.log
+	@ echo "nextflow run -bg . -with-docker -resume -profile $(PROFILE) > run.log"
 
 clean:
 	@rm -rf work .nextflow* *.[0-9]+ trace.txt* report.html*
