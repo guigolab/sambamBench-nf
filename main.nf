@@ -8,21 +8,52 @@ if (bam instanceof Path && !bam.exists()) {
     file(getUrl).copyTo(bam)
 }
 
-// Channel.fromPath(bams)
-// .set{bam}
-
-sambambaVers = params.sambambaVers.tokenize(',')
-samtoolsVers = params.samtoolsVers.tokenize(',')
-
-commands = ['flagstat', 'index', 'markdup', 'sort', 'view' ]
-
-samtoolsDiffCommands = ['flagstat', 'index', 'markdup']
-
-process sambamba {
+process flagstat {
     
     input:
-    each command from commands
-    each ver from sambambaVers
+    each tool from params.tools
+    file bam from bam
+
+    output:
+    file ".command.err"
+
+    script:
+    verSuffix = tool.name == 'samtools' ? "-${tool.version}" : ""
+    template "${task.process}/${tool.name}${verSuffix}"
+}
+
+process index {
+    
+    input:
+    each tool from params.tools
+    file bam from bam
+
+    output:
+    file ".command.err"
+
+    script:
+    verSuffix = tool.name == 'samtools' ? "-${tool.version}" : ""
+    template "${task.process}/${tool.name}${verSuffix}"
+}
+
+process markdup {
+    
+    input:
+    each tool from params.tools
+    file bam from bam
+
+    output:
+    file ".command.err"
+
+    script:
+    verSuffix = tool.name == 'samtools' ? "-${tool.version}" : ""
+    template "${task.process}/${tool.name}${verSuffix}"
+}
+
+process sort {
+    
+    input:
+    each tool from params.tools
     file bam from bam
 
     output:
@@ -30,22 +61,21 @@ process sambamba {
 
     script:
     mem = (task.memory.toBytes()*0.6) as long
-    template "${command}/${task.process}"
+    if (tool.name == 'samtools') {
+        mem = mem/task.cpus as long
+    }
+    template "${task.process}/${tool.name}"
 }
 
-process samtools {
-
+process view {
+    
     input:
-    each command from commands
-    each ver from samtoolsVers
+    each tool from params.tools
     file bam from bam
 
     output:
     file ".command.err"
 
     script:
-    mem = (task.memory.toBytes()*0.6/task.cpus) as long
-    verSuffix = samtoolsDiffCommands.contains(command) ? "-${ver}" : ""
-    
-    template "${command}/${task.process}${verSuffix}"
+    template "${task.process}/${tool.name}"
 }
