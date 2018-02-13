@@ -1,5 +1,15 @@
-Channel.fromPath(params.bams)
-.into{samtoolsBams; sambambaBams}
+// Create input file object
+bam = file(params.bam)
+
+// Download input file if does not exist
+if (bam instanceof Path && !bam.exists()) {
+    getUrl = "${params.baseUrl}/${bam.name}"
+    log.info("Downloading $getUrl")
+    file(getUrl).copyTo(bam)
+}
+
+// Channel.fromPath(bams)
+// .set{bam}
 
 sambambaVers = params.sambambaVers.tokenize(',')
 samtoolsVers = params.samtoolsVers.tokenize(',')
@@ -13,7 +23,7 @@ process sambamba {
     input:
     each command from commands
     each ver from sambambaVers
-    file bam from sambambaBams
+    file bam from bam
 
     output:
     file ".command.err"
@@ -28,7 +38,7 @@ process samtools {
     input:
     each command from commands
     each ver from samtoolsVers
-    file bam from samtoolsBams
+    file bam from bam
 
     output:
     file ".command.err"
