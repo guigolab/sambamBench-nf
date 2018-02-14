@@ -1,2 +1,5 @@
 #!/bin/bash -eu
-time samtools markdup -@${task.cpus} ${bam} /dev/null
+time samtools sort -@{task.cpus} -m ${mem} -n ${bam} \
+| samtools fixmate -@{task.cpus} -m - - \
+| samtools sort -@{task.cpus} -m ${mem} \
+| samtools markdup -@${task.cpus} - /dev/null
