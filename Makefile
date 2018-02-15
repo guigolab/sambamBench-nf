@@ -12,10 +12,10 @@ endif
 .PHONY: clean docker $(TOOLS) run
 
 run:
-	@ nextflow run -bg . -with-docker -profile $(PROFILE) > run.log
+	@ nextflow run -bg . -profile $(PROFILE) > run.log
 
 resume:
-	@ nextflow run -bg . -with-docker -resume -profile $(PROFILE) > run.log
+	@ nextflow run -bg . -resume -profile $(PROFILE) > run.log
 
 docker: $(TOOLS)
 
