@@ -14,7 +14,7 @@ Note: the pipeline can be used without a container engine by installing the requ
 
 ## Quickstart
 
-Install nextflow with the following command:
+Install Nextflow with the following command:
 
 ```
 curl -fsSL get.nextflow.io | bash
@@ -25,3 +25,7 @@ Run the pipeline with:
 ```
 nextflow run guigolab/sambamBench-nf
 ```
+
+Note: the command above will automatically download a test BAM file of ~4GB in `./data` if the file is not present.
+
+Check the [Makefile](Makefile) for more commands.
