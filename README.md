@@ -1,6 +1,6 @@
 # sambamBench-nf
 
-[![nextflow](https://img.shields.io/badge/nextflow-0.27.6-blue.svg)](https://nextflow.io)
+[![nextflow](https://img.shields.io/badge/nextflow-%E2%89%A50.27.6-blue.svg)](https://nextflow.io)
 
 A simple Nextflow pipeline for testing the performance of sambamba vs samtools.
 
