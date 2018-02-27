@@ -31,3 +31,5 @@ Note: the command above will automatically download a test BAM file of ~4GB in `
 Check the [Makefile](Makefile) for more commands.
 
 The [Nextflow config](nextflow.config) file contains the pipeline configuration including parameters and resource specifications.
+
+A sample report of a run in the [CRG](http://www.crg.eu/) cluster on a single node with `16` cpus and `120G` of memory can be seen [here](https://guigolab.github.io/sambamBench-nf/report_16_120G.html) 
