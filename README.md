@@ -29,3 +29,5 @@ nextflow run guigolab/sambamBench-nf
 Note: the command above will automatically download a test BAM file of ~4GB in `./data` if the file is not present.
 
 Check the [Makefile](Makefile) for more commands.
+
+The [Nextflow config](nextflow.config) file contains the pipeline configuration including parameters and resource specifications.
